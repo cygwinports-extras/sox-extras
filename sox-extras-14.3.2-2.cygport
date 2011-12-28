@@ -1,0 +1,49 @@
+DESCRIPTION="Swiss army knife of sound processing programs"
+HOMEPAGE="http://sox.sourceforge.net/"
+SRC_URI="mirror://sourceforge/sox/sox-${PV}.tar.gz"
+SRC_DIR="sox-${PV}"
+PATCH_URI="14.2.0-no-undefined.patch"
+
+for l in amr_nb amr_wb ffmpeg mp3
+do
+	PKG_NAMES+=" sox-fmt-${l/_}"
+	declare sox_fmt_${l/_}_CONTENTS="usr/lib/sox/cygsox_fmt_${l}.dll"
+done
+unset l
+# provided by main sox package
+PKG_IGNORE="usr/share/doc/"
+
+DISTCLEANFILES="src/soxconfig.h"
+
+CYGCONF_ARGS="
+	--disable-static
+	--with-dyn-default
+	--with-amrnb=dyn
+	--with-amrwb=dyn
+	--with-ffmpeg=dyn
+	--with-mp3=dyn
+	--without-alsa
+	--without-ao
+	--without-coreaudio
+	--without-flac
+	--without-gsm
+	--without-ladspa
+	--without-lpc10
+	--without-oggvorbis
+	--without-oss
+	--without-png
+	--without-pulseaudio
+	--without-sndfile
+	--without-sndio
+	--without-sunaudio
+	--without-waveaudio
+	--without-wavpack
+"
+
+src_install() {
+	cd ${B}
+	exeinto /usr/lib/sox
+	doexe src/libsox_fmt_*.la
+}
+
+KEEP_LA_FILES="none"
