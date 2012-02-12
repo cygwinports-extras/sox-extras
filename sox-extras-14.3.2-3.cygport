@@ -3,6 +3,7 @@ HOMEPAGE="http://sox.sourceforge.net/"
 SRC_URI="mirror://sourceforge/sox/sox-${PV}.tar.gz"
 SRC_DIR="sox-${PV}"
 PATCH_URI="14.2.0-no-undefined.patch"
+PATCH_URI+=" mirror://portage/media-sound/sox/files/sox-${PV}-ffmpeg.patch"
 
 for l in amr_nb amr_wb ffmpeg mp3
 do
