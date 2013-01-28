@@ -1,6 +1,6 @@
 NAME="sox-extras"
 VERSION=14.4.0
-RELEASE=1
+RELEASE=2
 CATEGORY="Audio"
 SUMMARY="Sound processing toolkit"
 DESCRIPTION="SoX (also known as Sound eXchange) translates sound files between
@@ -13,6 +13,7 @@ SRC_URI="mirror://sourceforge/sox/sox-${PV}.tar.gz"
 SRC_DIR="sox-${PV}"
 PATCH_URI="14.4.0-no-undefined.patch"
 PATCH_URI+=" mirror://portage/media-sound/sox/files/sox-${PV}-ffmpeg.patch"
+PATCH_URI+=" mirror://portage/media-sound/sox/files/sox-${PV}-avcodec54.patch"
 
 for l in amr_nb amr_wb ffmpeg mp3
 do
