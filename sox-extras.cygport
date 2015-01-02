@@ -1,6 +1,6 @@
 NAME="sox-extras"
-VERSION=14.4.0
-RELEASE=3
+VERSION=14.4.1
+RELEASE=1
 CATEGORY="Audio"
 SUMMARY="Sound processing toolkit"
 DESCRIPTION="SoX (also known as Sound eXchange) translates sound files between
@@ -9,11 +9,19 @@ SoX is intended as the Swiss Army knife of sound processing tools.  It
 doesn't do anything very well, but sooner or later it comes in very
 handy."
 HOMEPAGE="http://sox.sourceforge.net/"
-SRC_URI="mirror://sourceforge/sox/sox-${VERSION}.tar.gz"
+#SRC_URI="mirror://sourceforge/sox/sox-${VERSION}.tar.gz"
+md5sum=ca5845928846e13e9d5cb6de6831f05e
+SRC_URI="http://pkgs.fedoraproject.org/repo/pkgs/sox/sox-${VERSION}.modified.tar.gz/${md5sum}/sox-${VERSION}.modified.tar.gz"
 SRC_DIR="sox-${VERSION}"
-PATCH_URI="14.4.0-no-undefined.patch"
-PATCH_URI+=" mirror://portage/media-sound/sox/files/sox-${VERSION}-ffmpeg.patch"
-PATCH_URI+=" mirror://portage/media-sound/sox/files/sox-${VERSION}-avcodec54.patch"
+PATCH_URI="
+	mirror://portage/media-sound/sox/files/sox-14.4.0-ffmpeg.patch
+	mirror://portage/media-sound/sox/files/sox-14.4.0-avcodec54.patch
+	mirror://portage/media-sound/sox/files/sox-14.4.0-libav-9.patch
+	mirror://portage/media-sound/sox/files/sox-14.4.1-ffmpeg2.patch
+	mirror://portage/media-sound/sox/files/sox-14.4.1-ffmpeg24.patch
+	http://pkgs.fedoraproject.org/cgit/sox.git/plain/sox-14.4.1-lpc10.patch
+	14.4.0-no-undefined.patch
+"
 
 for l in amr_nb amr_wb ffmpeg mp3
 do
