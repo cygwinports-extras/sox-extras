@@ -1,5 +1,5 @@
 NAME="sox-extras"
-VERSION=14.4.1
+VERSION=14.4.2
 RELEASE=1
 CATEGORY="Audio"
 SUMMARY="Sound processing toolkit"
@@ -10,26 +10,23 @@ doesn't do anything very well, but sooner or later it comes in very
 handy."
 HOMEPAGE="http://sox.sourceforge.net/"
 #SRC_URI="mirror://sourceforge/sox/sox-${VERSION}.tar.gz"
-md5sum=ca5845928846e13e9d5cb6de6831f05e
+md5sum=a46ec45bbc1b11987423ea9b51ab927d
 SRC_URI="http://pkgs.fedoraproject.org/repo/pkgs/sox/sox-${VERSION}.modified.tar.gz/${md5sum}/sox-${VERSION}.modified.tar.gz"
 SRC_DIR="sox-${VERSION}"
 PATCH_URI="
-	mirror://portage/media-sound/sox/files/sox-14.4.0-ffmpeg.patch
-	mirror://portage/media-sound/sox/files/sox-14.4.0-avcodec54.patch
-	mirror://portage/media-sound/sox/files/sox-14.4.0-libav-9.patch
-	mirror://portage/media-sound/sox/files/sox-14.4.1-ffmpeg2.patch
-	mirror://portage/media-sound/sox/files/sox-14.4.1-ffmpeg24.patch
 	http://pkgs.fedoraproject.org/cgit/sox.git/plain/sox-14.4.1-lpc10.patch
-	14.4.0-no-undefined.patch
+	14.4.2-no-undefined.patch
 "
 
-for l in amr_nb amr_wb ffmpeg mp3
+for l in amr_nb amr_wb mp3
 do
 	PKG_NAMES+=" sox-fmt-${l/_}"
 	declare sox_fmt_${l}_SUMMARY="${SUMMARY} (${l} plugin)"
 	declare sox_fmt_${l/_}_CONTENTS="usr/lib/sox/cygsox_fmt_${l}.dll"
 done
 unset l
+PKG_NAMES+=" sox-fmt-ffmpeg"
+sox_fmt_ffmpeg_CATEGORY="_obsolete"
 # provided by main sox package
 PKG_IGNORE="usr/share/doc/"
 
@@ -40,7 +37,6 @@ CYGCONF_ARGS="
 	--with-dyn-default
 	--with-amrnb=dyn
 	--with-amrwb=dyn
-	--with-ffmpeg=dyn
 	--with-mp3=dyn
 	--with-twolame
 	--without-alsa
@@ -51,6 +47,7 @@ CYGCONF_ARGS="
 	--without-ladspa
 	--without-lpc10
 	--without-oggvorbis
+	--without-opus
 	--without-oss
 	--without-png
 	--without-pulseaudio
